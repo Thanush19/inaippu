@@ -7,7 +7,7 @@
     <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
-    <connection id="b9dbef67-77d3-4deb-9eae-75456c763d22">
+    <connection id="9e35945c-b619-48ec-b249-4a0f2ccc070c">
       <console name="Connection" type="STANDARD" schema="" session="Main" />
     </connection>
   </component>
@@ -20,13 +20,13 @@
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
-      <connection id="b9dbef67-77d3-4deb-9eae-75456c763d22" active="true" signed="true">
+      <connection id="9e35945c-b619-48ec-b249-4a0f2ccc070c" active="true" signed="true">
         <database>
           <name value="Connection" />
           <description value="" />
           <database-type value="POSTGRES" />
           <config-type value="BASIC" />
-          <database-version value="15.4" />
+          <database-version value="15.5" />
           <driver-source value="BUNDLED" />
           <driver-library value="" />
           <driver value="" />
