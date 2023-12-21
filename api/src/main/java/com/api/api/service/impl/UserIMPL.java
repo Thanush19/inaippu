@@ -62,9 +62,9 @@ public class UserIMPL implements UserService {
             if (isPwdRight) {
                 Optional<User> user = userRepository.findOneByEmailAndPassword(loginDTO.getEmail(), encodedPassword);
                 if (user.isPresent()) {
-                    return new LoginResponse("Login Success", true);
+                    return new LoginResponse("Login Success", true,user);
                 } else {
-                    return new LoginResponse("Login Failed", false);
+                    return new LoginResponse("Login Failed", false, user);
                 }
             } else {
                 return new LoginResponse("password Not Match", false);
