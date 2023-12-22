@@ -1,5 +1,6 @@
 package com.api.api.dto;
 import com.api.api.enumeration.Coordinates;
+import com.api.api.enumeration.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
