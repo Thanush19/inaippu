@@ -49,17 +49,23 @@ const Register = () => {
     axios
       .post(`${Backend}/users/register`, userData)
       .then((response) => {
-        console.log(response.data);
-        toast.success("Successfully register !", {
-          position: toast.POSITION.TOP_RIGHT,
-        });
-        setTimeout(() => {
-          navigate("/login");
-        }, 3000);
+        if (response.data.includes("Username or email already exists")) {
+          toast.error("Username or email already exists!", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+          setTimeout(() => {
+            navigate("/login");
+          }, 3000);
+        } else {
+          console.log(response.data);
+          toast.success("Successfully register !", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+        }
       })
       .catch((error) => {
         console.error("Error during registration:", error);
-        toast.error("registration failed !", {
+        toast.error("Registration failed !", {
           position: toast.POSITION.TOP_RIGHT,
         });
       });
