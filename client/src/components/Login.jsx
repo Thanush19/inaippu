@@ -1,11 +1,18 @@
+// Login.js
+
 import React, { useState } from "react";
-import axios from "axios"; // Make sure to import axios
+import { useDispatch } from "react-redux";
+import axios from "axios";
 import Backend from "../../constant";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import { setUserData } from "../redux/userSlice";
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
@@ -27,6 +34,10 @@ const Login = () => {
         toast.success("Successfully login !", {
           position: toast.POSITION.TOP_RIGHT,
         });
+
+        dispatch(setUserData(response.data.user));
+
+        navigate("/");
       })
       .catch((error) => {
         console.error("Error during login:", error);
