@@ -17,13 +17,14 @@ public class UserController {
     private UserService userService;
 
     @PostMapping(path="/register")
-    public String registerUser(@RequestBody UserDTO userDTO){
-        String id = userService.addUser(userDTO);
-        return id;
-    }
-    @GetMapping(path="/register")
-    public String testing(){
-        return  "hiiiiii";
+    public ResponseEntity<String> registerUser(@RequestBody UserDTO userDTO) {
+        try {
+            String id = userService.addUser(userDTO);
+            return ResponseEntity.ok("User registered successfully with ID: " + id);
+        } catch (Exception e) {
+            e.printStackTrace(); // Add this line for logging
+            return ResponseEntity.status(500).body("Error registering user: " + e.getMessage());
+        }
     }
 
     @PostMapping(path = "/login")

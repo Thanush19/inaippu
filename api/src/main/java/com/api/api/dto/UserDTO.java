@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -18,9 +20,9 @@ public class UserDTO {
     private String email;
     private String password;
     private String address;
-    private int phone_number;
+    private Long phone_number;
     private Coordinates coordinates;
 
     private String role;
-    private String[] services;
+    private List<String> services;
 }

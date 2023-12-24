@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 //instead od setting constructors manually we can use @Data
 @Builder
@@ -28,9 +30,9 @@ public class User {
     private String email;
     private String password;
     private String address;
-    private int phone_number;
+    private Long phone_number;
     private String role;
-    private String[] services;
+    private List<String> services;
     private Coordinates coordinates;
 
 
