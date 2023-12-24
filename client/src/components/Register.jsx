@@ -3,7 +3,11 @@ import axios from "axios";
 import Backend from "../../constant";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
+
 const Register = () => {
+  const navigate = useNavigate();
+
   const [userData, setUserData] = useState({
     username: "",
     email: "",
@@ -21,7 +25,10 @@ const Register = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    if (name.startsWith("coordinates.")) {
+    if (name === "services") {
+      const servicesArray = value.split(",");
+      setUserData((prevData) => ({ ...prevData, [name]: servicesArray }));
+    } else if (name.startsWith("coordinates.")) {
       const coordinateField = name.split(".")[1];
       setUserData((prevData) => ({
         ...prevData,
@@ -37,6 +44,7 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("Submitting data:", userData);
 
     axios
       .post(`${Backend}/users/register`, userData)
@@ -45,6 +53,9 @@ const Register = () => {
         toast.success("Successfully register !", {
           position: toast.POSITION.TOP_RIGHT,
         });
+        setTimeout(() => {
+          navigate("/login");
+        }, 3000);
       })
       .catch((error) => {
         console.error("Error during registration:", error);
@@ -123,10 +134,11 @@ const Register = () => {
           <input
             type="text"
             name="services"
-            value={userData.services}
+            value={userData.services.join(",")} // Convert the array to a comma-separated string
             onChange={handleChange}
           />
         </label>
+
         <br />
         <button type="submit">Register</button>
       </form>
