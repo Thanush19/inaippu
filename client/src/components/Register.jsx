@@ -200,7 +200,34 @@ const Register = () => {
 
         <p>(or)</p>
         <div className="border border-lime-900 bg-gray-300 hover:bg-gray-500">
-          <button onClick={handleGetLocation}>Get My Live Location</button>
+          <button onClick={handleGetLocation} disabled={isGettingLocation}>
+            {isGettingLocation ? (
+              <div className="loader">
+                <svg
+                  className="animate-spin h-5 w-5 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 4.418 3.582 8 8 8v-4c-2.636 0-5.052-1.062-6.782-2.809l2.73-2.73a5.978 6.014 0 008.475 0 5.978 6.014 0 000-8.475l-1.414-1.414A7.963 7.963 0 016 17.291zM17.207 6.707a5.978 6.014 0 000 8.475l1.414 1.414A7.963 7.963 0 0020 11.709h4c0-4.418-3.582-8-8-8v4c2.636 0 5.052 1.062 6.782 2.809l-2.73 2.73a5.978 6.014 0 00-8.475 0 5.978 6.014 0 000 8.475l1.414 1.414A7.963 7.963 0 0022 12.291h-4a7.963 7.963 0 01-1.793 5.003z"
+                  ></path>
+                </svg>
+              </div>
+            ) : (
+              "Get My Live Location"
+            )}
+          </button>
           {locationData && (
             <div>
               <p>Address: {locationData.address}</p>
@@ -259,105 +286,15 @@ const Register = () => {
                 className="form-select border border-lime-900 w-full p-2 appearance-none"
                 multiple
               >
-                {/* Options... */}
-              </select>
-              <div className="absolute right-2 top-2">
-                {userData.services.map((service) => (
-                  <span
-                    key={service}
-                    className="bg-lime-900 text-white px-2 mr-2 rounded"
-                  >
-                    {service}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {userData.role === "STREET_VENDOR" && (
-          <div className="my-4">
-            <label className="block text-gray-700">Select Services:</label>
-            <div className="relative">
-              <select
-                name="services"
-                value={userData.services}
-                onChange={handleChange}
-                onFocus={() => setIsServicesDropdownOpen(true)}
-                onBlur={() => setIsServicesDropdownOpen(false)}
-                className="form-select border border-lime-900 w-full p-2 appearance-none"
-                multiple
-              >
-                <option
-                  value="Aquavendor"
-                  onClick={() => setIsServicesDropdownOpen(false)}
-                >
-                  Aquavendor
+                <option value="" disabled>
+                  Select a Service
                 </option>
-                <option
-                  value="Food Delivery"
-                  onClick={() => setIsServicesDropdownOpen(false)}
-                >
-                  Food Delivery
-                </option>
-                <option
-                  value="Newspaper"
-                  onClick={() => setIsServicesDropdownOpen(false)}
-                >
-                  Newspaper
-                </option>
-                <option
-                  value="Grocery"
-                  onClick={() => setIsServicesDropdownOpen(false)}
-                >
-                  Grocery
-                </option>
-                <option
-                  value="Vegetables"
-                  onClick={() => setIsServicesDropdownOpen(false)}
-                >
-                  Vegetables
-                </option>
-                <option
-                  value="Meat and Fish"
-                  onClick={() => setIsServicesDropdownOpen(false)}
-                >
-                  Meat and Fish
-                </option>
-              </select>
-              <div className="absolute right-2 top-2">
-                {userData.services.map((service) => (
-                  <span
-                    key={service}
-                    className="bg-lime-900 text-white px-2 mr-2 rounded"
-                  >
-                    {service}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {userData.role === "SERVICE_PROVIDER" && (
-          <div className="my-4">
-            <label className="block text-gray-700">Selective Services:</label>
-            <div className="relative">
-              <select
-                name="services"
-                value={userData.services}
-                onChange={handleServicesDropdownChange}
-                onFocus={() => setIsServicesDropdownOpen(true)}
-                onBlur={() => setIsServicesDropdownOpen(false)}
-                className="form-select border border-lime-900 w-full p-2 appearance-none"
-                multiple
-              >
-                <option
-                  value="COOK"
-                  onClick={() => setIsServicesDropdownOpen(false)}
-                >
-                  Cook
-                </option>
+                <option value="COOK">Cook</option>
+                <option value="ELECTRICIAN">Electrician</option>
+                <option value="PLUMBER">Plumber</option>
+                <option value="MECHANIC">Mechanic</option>
+                <option value="CARPENTER">Carpenter</option>
+                <option value="MAID">Maid</option>
               </select>
               <div className="absolute right-2 top-2">
                 {userData.services.map((service) => (
@@ -375,20 +312,41 @@ const Register = () => {
 
         <br />
 
-        {userData.role === "STREET_VENDOR" &&
-          userData.services.includes("OTHER") && (
-            <div className="my-4">
-              <label className="block text-gray-700">Other Services:</label>
-              <input
-                type="text"
-                name="otherServices"
-                value={userData.otherServices}
-                onChange={handleChange}
-                className="border border-lime-900 w-full p-2"
-                placeholder="Type other services separated by commas"
-              />
+        {userData.role === "STREET_VENDOR" && (
+          <div className="my-4">
+            <label className="block text-gray-700">Select Services:</label>
+            <div className="relative">
+              <select
+                name="services"
+                value={userData.services}
+                onChange={handleServicesDropdownChange}
+                onFocus={() => setIsServicesDropdownOpen(true)}
+                onBlur={() => setIsServicesDropdownOpen(false)}
+                className="form-select border border-lime-900 w-full p-2 appearance-none"
+                multiple
+              >
+                <option value="Aquavendor">Aquavendor</option>
+                <option value="Food Delivery">Food Delivery</option>
+                <option value="Newspaper">Newspaper</option>
+                <option value="Grocery">Grocery</option>
+                <option value="Vegetables">Vegetables</option>
+                <option value="Meat and Fish">Meat and Fish</option>
+              </select>
+              <div className="absolute right-2 top-2">
+                {userData.services.map((service) => (
+                  <span
+                    key={service}
+                    className="bg-lime-900 text-white px-2 mr-2 rounded"
+                  >
+                    {service}
+                  </span>
+                ))}
+              </div>
             </div>
-          )}
+          </div>
+        )}
+
+        <br />
 
         <button type="submit" className="bg-red-400">
           Register
