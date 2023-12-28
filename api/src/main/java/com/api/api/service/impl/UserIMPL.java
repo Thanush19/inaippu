@@ -13,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Data
@@ -25,7 +27,23 @@ public class UserIMPL implements UserService {
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    public List<UserDTO> getAllUsers(){
+        List<User> users = userRepository.findAll();
+        return users.stream().map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
 
+    private UserDTO convertToDTO(User user) {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setId(user.getId());
+        userDTO.setUsername(user.getUsername());
+        userDTO.setEmail(user.getEmail());
+        userDTO.setAddress(user.getAddress());
+        userDTO.setPhone_number(user.getPhone_number());        userDTO.setRole(user.getRole());
+        userDTO.setServices(user.getServices());
+        userDTO.setCoordinates(user.getCoordinates());
+        return userDTO;
+    }
     @Override
     public String addUser(UserDTO userDTO) {
         // Check if the username or email is already registered
