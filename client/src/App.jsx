@@ -5,6 +5,7 @@ import { selectUserData, clearUserData } from "./redux/userSlice";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import Testing from "./components/Testing";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -31,6 +32,7 @@ function App() {
           path="/"
           element={userData ? <HomePage /> : <Navigate to="/login" />}
         />
+        <Route path="/testing" element={<Testing />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
       </Routes>

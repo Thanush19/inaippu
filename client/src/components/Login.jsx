@@ -6,7 +6,7 @@ import axios from "axios";
 import Backend from "../../constant";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { setUserData } from "../redux/userSlice";
 
 const Login = () => {
@@ -31,13 +31,23 @@ const Login = () => {
       .post(`${Backend}/users/login`, loginData)
       .then((response) => {
         console.log(response.data);
-        toast.success("Successfully login !", {
-          position: toast.POSITION.TOP_RIGHT,
-        });
+        if (response.data.status) {
+          toast.success("Successfully login !", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
 
-        dispatch(setUserData(response.data.user));
-
-        navigate("/");
+          dispatch(setUserData(response.data.user));
+          navigate("/");
+        } else if (!response.data.status) {
+          toast.error("users doesn't exist", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+        }
+        if (response.data.response === "password Not Match") {
+          toast.error("password mismatch", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+        }
       })
       .catch((error) => {
         console.error("Error during login:", error);
@@ -70,6 +80,8 @@ const Login = () => {
         <br />
         <button type="submit">Login</button>
       </form>
+      <p>dont have a account</p>
+      <Link to="/register">Sign in</Link>
     </div>
   );
 };
