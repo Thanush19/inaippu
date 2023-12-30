@@ -40,9 +40,5 @@ public class User {
 
 
 
-//    @Embedded
-//    @OneToOne
-//    @JoinColumn(name="role_id")
-
 
 }
