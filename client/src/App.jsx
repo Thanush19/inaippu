@@ -33,8 +33,8 @@ function App() {
           path="/"
           element={userData ? <HomePage /> : <Navigate to="/login" />}
         />
-        {/* <Route path="/testing" element={<Testing />} />
-        <Route path="/testing1" element={<MapApp />} /> */}
+        <Route path="/testing" element={<Testing />} />
+        <Route path="/testing1" element={<MapApp />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
       </Routes>

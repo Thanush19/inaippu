@@ -68,6 +68,7 @@ const Register = () => {
     },
     role: "",
     services: [],
+    gender: "",
   });
 
   const handleChange = (e) => {
@@ -124,6 +125,9 @@ const Register = () => {
           toast.success("Successfully register !", {
             position: toast.POSITION.TOP_RIGHT,
           });
+          setTimeout(() => {
+            navigate("/login");
+          }, 3000);
         }
       })
       .catch((error) => {
@@ -166,6 +170,24 @@ const Register = () => {
               required
               className="border border-lime-900"
             />
+          </label>
+        </div>
+        <div className="gender">
+          <label>
+            Gender:
+            <select
+              name="gender"
+              value={userData.gender}
+              onChange={handleChange}
+              required
+              className="border border-lime-900"
+            >
+              <option value="" disabled>
+                Select your Gender
+              </option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
           </label>
         </div>
 
