@@ -15,7 +15,7 @@ public class LoginResponse {
     public LoginResponse(String response, boolean status, Optional<User> user) {
         this.response = response;
         this.status = status;
-        this.user = user.orElse(null); // Use orElse(null) to handle the Optional<User>
+        this.user = user.orElse(null);
     }
 
     public LoginResponse(String response, boolean status) {

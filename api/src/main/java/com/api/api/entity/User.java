@@ -29,8 +29,10 @@ public class User {
     private String username;
     private String email;
     private String password;
-    private String address;
     private Long phone_number;
+    private String address;
+    private String gender;
+
     private String role;
     private List<String> services;
     private Coordinates coordinates;

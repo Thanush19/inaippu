@@ -89,5 +89,6 @@ public class UserIMPL implements UserService {
             }
         }else {
             return new LoginResponse("Email not exits", false);
-        }    }
+        }
+    }
 }

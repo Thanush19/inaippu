@@ -21,6 +21,8 @@ public class UserDTO {
     private String password;
     private String address;
     private Long phone_number;
+    private String gender;
+
     private Coordinates coordinates;
 
     private String role;
