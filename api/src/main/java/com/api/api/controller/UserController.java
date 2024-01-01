@@ -1,10 +1,12 @@
 package com.api.api.controller;
 
+import com.api.api.dto.DemandDTO;
 import com.api.api.dto.LoginDTO;
 import com.api.api.dto.UserDTO;
 import com.api.api.payLoadResponse.LoginResponse;
 import com.api.api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,6 +42,9 @@ public class UserController {
         List<UserDTO> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
     }
+
+
+
 
 
 }

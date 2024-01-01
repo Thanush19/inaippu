@@ -19,14 +19,15 @@ public class Demand {
     private String description;
     private String serviceType;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
 
     private boolean isClosed;
     private boolean isResolved;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "resolved_by_user_id")
     private User resolvedByUser;
 
