@@ -9,15 +9,13 @@ import { useSelector } from "react-redux";
 import { selectUserData } from "../redux/userSlice";
 import L from "leaflet";
 
-const MapApp = () => {
+const SurfLocalMap = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const currentUser = useSelector(selectUserData);
   console.log(currentUser);
-
   const center = [13.03196875, 80.21947594168645];
   const zoom = 13;
-
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -32,7 +30,6 @@ const MapApp = () => {
 
     fetchUsers();
   }, []);
-
   return (
     <div>
       <h1>Vendor Map</h1>
@@ -82,4 +79,4 @@ const MapApp = () => {
   );
 };
 
-export default MapApp;
+export default SurfLocalMap;

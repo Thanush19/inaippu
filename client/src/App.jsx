@@ -9,6 +9,9 @@ import Testing from "./testing/Testing";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import MapApp from "./testing/MapApp";
+import SurfLocalMap from "./components/SurfLocalMap";
+import RaiseDemand from "./components/RaiseDemand";
+import DemandsList from "./components/DemandsList";
 
 function App() {
   const userData = useSelector(selectUserData);
@@ -32,6 +35,32 @@ function App() {
         <Route
           path="/"
           element={userData ? <HomePage /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/surf-local"
+          element={userData ? <SurfLocalMap /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/raise-demand"
+          element={
+            userData &&
+            (userData.role === "RESIDENT" || userData.role === "ADMIN") ? (
+              <RaiseDemand />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+        <Route
+          path="/user-demands/:id"
+          element={
+            userData &&
+            (userData.role === "RESIDENT" || userData.role === "ADMIN") ? (
+              <DemandsList />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         />
         <Route path="/testing" element={<Testing />} />
         <Route path="/testing1" element={<MapApp />} />
