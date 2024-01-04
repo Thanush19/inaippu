@@ -12,4 +12,6 @@ public interface DemandService {
     Demand updateDemand(Integer id, DemandDTO demandDTO);
     void deleteDemand(Integer id);
     List<DemandDTO> getDemandsByUserId(Integer userId);
+    //DemandDTO fromDemand(Demand demand);
+
 }

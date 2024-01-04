@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path="api")
@@ -29,6 +30,15 @@ public class DemandController {
         List<DemandDTO> demands = demandService.getDemandsByUserId(userId);
         return new ResponseEntity<>(demands, HttpStatus.OK);
     }
+    @GetMapping(path="/resident-demand")
+    public ResponseEntity<List<DemandDTO>> residentsDemand() {
+        List<DemandDTO> demandDTOs = demandService.getAllDemands().stream()
+                .map(DemandDTO::fromDemand) // Assuming you have a static method in DemandDTO to convert to DemandDTO
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<>(demandDTOs, HttpStatus.OK);
+    }
+
 
 
 

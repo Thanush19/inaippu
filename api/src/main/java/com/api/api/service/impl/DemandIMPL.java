@@ -51,6 +51,18 @@ public class DemandIMPL implements DemandService {
             throw new RuntimeException("Error creating demand: " + e.getMessage(), e);
         }
     }
+
+    public static DemandDTO fromDemand(Demand demand) {
+        return DemandDTO.builder()
+                .id(demand.getId())
+                .description(demand.getDescription())
+                .serviceType(demand.getServiceType())
+                .userId(demand.getUser() != null ? demand.getUser().getId() : null)
+                .isClosed(demand.isClosed())
+                .isResolved(demand.isResolved())
+                .resolvedByUserId(demand.getResolvedByUser() != null ? demand.getResolvedByUser().getId() : null)
+                .build();
+    }
     public List<DemandDTO> getDemandsByUserId(Integer userId) {
         List<Demand> demands = demandRepository.findByUser_Id(userId);
         return demands.stream()
