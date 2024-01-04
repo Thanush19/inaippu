@@ -12,6 +12,7 @@ import MapApp from "./testing/MapApp";
 import SurfLocalMap from "./components/SurfLocalMap";
 import RaiseDemand from "./components/RaiseDemand";
 import DemandsList from "./components/DemandsList";
+import ViewDemands from "./components/ViewDemands";
 
 function App() {
   const userData = useSelector(selectUserData);
@@ -41,6 +42,10 @@ function App() {
           element={userData ? <SurfLocalMap /> : <Navigate to="/login" />}
         />
         <Route
+          path="/view-demands"
+          element={userData ? <ViewDemands /> : <Navigate to="/login" />}
+        />
+        <Route
           path="/raise-demand"
           element={
             userData &&
@@ -62,6 +67,7 @@ function App() {
             )
           }
         />
+
         <Route path="/testing" element={<Testing />} />
         <Route path="/testing1" element={<MapApp />} />
         <Route path="/login" element={<LoginPage />} />

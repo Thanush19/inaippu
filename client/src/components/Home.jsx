@@ -33,6 +33,12 @@ const Home = () => {
         >
           Surf Your Local
         </Link>
+        <Link
+          to="/view-demands"
+          className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700"
+        >
+          view demands
+        </Link>
       </div>
     </div>
   );
