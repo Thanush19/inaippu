@@ -33,7 +33,7 @@ public class DemandController {
     @GetMapping(path="/resident-demand")
     public ResponseEntity<List<DemandDTO>> residentsDemand() {
         List<DemandDTO> demandDTOs = demandService.getAllDemands().stream()
-                .map(DemandDTO::fromDemand) // Assuming you have a static method in DemandDTO to convert to DemandDTO
+                .map(DemandDTO::fromDemand)
                 .collect(Collectors.toList());
 
         return new ResponseEntity<>(demandDTOs, HttpStatus.OK);

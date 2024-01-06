@@ -19,8 +19,9 @@ public class DemandDTO {
     private boolean isClosed;
     private boolean isResolved;
     private Integer resolvedByUserId;
-    private String userAddress;  // Added userAddress field
-    private String resolvedByUserAddress;  // Added resolvedByUserAddress field
+    private String userAddress;
+    private String resolvedByUserAddress;
+    private Long phone_number;
 
     public static DemandDTO fromDemand(Demand demand) {
         return DemandDTO.builder()
@@ -33,6 +34,8 @@ public class DemandDTO {
                 .resolvedByUserId(demand.getResolvedByUser() != null ? demand.getResolvedByUser().getId() : null)
                 .userAddress(demand.getUser() != null ? demand.getUser().getCoordinates().toString() : null)
                 .resolvedByUserAddress(demand.getResolvedByUser() != null ? demand.getResolvedByUser().getCoordinates().toString() : null)
+                .phone_number(demand.getUser() != null ? demand.getUser().getPhoneNumber() : null)
+
                 .build();
     }
 }

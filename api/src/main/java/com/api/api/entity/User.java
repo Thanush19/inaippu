@@ -39,6 +39,8 @@ public class User {
 
 
 
-
+    public Long getPhoneNumber() {
+        return phone_number;
+    }
 
 }
