@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { selectUserData, clearUserData } from "./redux/userSlice";
+import { selectUserData, setUserData, clearUserData } from "./redux/userSlice";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
@@ -15,12 +15,22 @@ import DemandsList from "./components/DemandsList";
 import ViewDemands from "./components/ViewDemands";
 
 function App() {
+  const storedUserData = localStorage.getItem("userData");
+  const initialUserData = storedUserData ? JSON.parse(storedUserData) : null;
+  const [isLoading, setIsLoading] = useState(true);
   const userData = useSelector(selectUserData);
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (initialUserData && !userData) {
+      dispatch(setUserData(initialUserData));
+    }
+    setIsLoading(false);
+  }, [dispatch, initialUserData, userData]);
+
+  useEffect(() => {
     const handleBeforeUnload = () => {
-      dispatch(clearUserData());
+      localStorage.setItem("userData", JSON.stringify(userData));
     };
 
     window.addEventListener("beforeunload", handleBeforeUnload);
@@ -28,10 +38,27 @@ function App() {
     return () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
+  }, [userData]);
+
+  useEffect(() => {
+    const clearStoredUserData = setTimeout(() => {
+      localStorage.removeItem("userData");
+      dispatch(clearUserData());
+    }, 3600000);
+
+    return () => {
+      clearTimeout(clearStoredUserData);
+    };
   }, [dispatch]);
+
+  if (isLoading) {
+    // You can render a loading indicator here if needed
+    return null;
+  }
 
   return (
     <>
+      {/* Your Routes and components */}
       <Routes>
         <Route
           path="/"
