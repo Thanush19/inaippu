@@ -6,6 +6,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUserData } from "../redux/userSlice";
+import Modal from "react-modal"; // Import react-modal
+Modal.setAppElement("#root");
 
 const DemandsList = () => {
   const userData = useSelector(selectUserData);
@@ -13,10 +15,13 @@ const DemandsList = () => {
 
   const { id } = userData;
   const [demands, setDemands] = useState([]);
+  const [editModalIsOpen, setEditModalIsOpen] = useState(false);
+  const [selectedDemand, setSelectedDemand] = useState({});
+  const [updatedDescription, setUpdatedDescription] = useState("");
+  const [updatedServiceType, setUpdatedServiceType] = useState("");
 
   useEffect(() => {
     if (id) {
-      // Fetch demands for the specific user
       axios
         .get(`${Backend}/demands-by-user/${id}`)
         .then((response) => {
@@ -24,14 +29,46 @@ const DemandsList = () => {
         })
         .catch((error) => {
           console.error("Error fetching demands:", error);
-          // Handle error, e.g., show an error message
         });
     }
-  }, [id]); // Trigger the effect when the user ID changes
+  }, [id]);
 
-  const handleEdit = (demandId) => {
-    // Navigate to the edit page or show a modal for editing
-    navigate(`/edit-demand/${demandId}`);
+  const handleEdit = (demand) => {
+    // Set the selected demand and open the edit modal
+    setSelectedDemand(demand);
+    setUpdatedDescription(demand.description);
+    setUpdatedServiceType(demand.serviceType);
+    setEditModalIsOpen(true);
+  };
+
+  const handleUpdate = () => {
+    // Update the demand using the API
+    axios
+      .put(`${Backend}/update-demand/${selectedDemand.id}`, {
+        description: updatedDescription,
+        serviceType: updatedServiceType,
+      })
+      .then((response) => {
+        toast.success("Demand updated successfully!", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+        // Optionally, refetch demands after update
+        // You can call the same API to get updated demands list
+        setDemands((prevDemands) =>
+          prevDemands.map((demand) =>
+            demand.id === selectedDemand.id ? response.data : demand
+          )
+        );
+        setEditModalIsOpen(false);
+      })
+      .catch((error) => {
+        console.error("Error updating demand:", error);
+        // Handle error, e.g., show an error message
+        toast.error("Error updating demand!", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+        setEditModalIsOpen(false);
+      });
   };
 
   const handleDelete = (demandId) => {
@@ -39,16 +76,16 @@ const DemandsList = () => {
     axios
       .delete(`${Backend}/delete-demand/${demandId}`)
       .then((response) => {
-        // Handle successful deletion
         toast.success("Demand deleted successfully!", {
           position: toast.POSITION.TOP_RIGHT,
         });
-        // Optionally, refetch demands after deletion
-        // You can call the same API to get updated demands list
+
+        setDemands((prevDemands) =>
+          prevDemands.filter((demand) => demand.id !== demandId)
+        );
       })
       .catch((error) => {
         console.error("Error deleting demand:", error);
-        // Handle error, e.g., show an error message
         toast.error("Error deleting demand!", {
           position: toast.POSITION.TOP_RIGHT,
         });
@@ -75,7 +112,7 @@ const DemandsList = () => {
               <td className="py-2 px-4 border">
                 <button
                   className="text-blue-500 hover:underline"
-                  onClick={() => handleEdit(demand.id)}
+                  onClick={() => handleEdit(demand)}
                 >
                   Edit
                 </button>
@@ -92,6 +129,28 @@ const DemandsList = () => {
           ))}
         </tbody>
       </table>
+
+      {/* Edit Modal */}
+      <Modal
+        isOpen={editModalIsOpen}
+        onRequestClose={() => setEditModalIsOpen(false)}
+      >
+        <h2>Edit Demand</h2>
+        <label>Description:</label>
+        <input
+          type="text"
+          value={updatedDescription}
+          onChange={(e) => setUpdatedDescription(e.target.value)}
+        />
+        <label>Service Type:</label>
+        <input
+          type="text"
+          value={updatedServiceType}
+          onChange={(e) => setUpdatedServiceType(e.target.value)}
+        />
+        <button onClick={handleUpdate}>Update</button>
+        <button onClick={() => setEditModalIsOpen(false)}>Cancel</button>
+      </Modal>
     </div>
   );
 };
