@@ -13,6 +13,7 @@ import SurfLocalMap from "./components/SurfLocalMap";
 import RaiseDemand from "./components/RaiseDemand";
 import DemandsList from "./components/DemandsList";
 import ViewDemands from "./components/ViewDemands";
+import "@fortawesome/fontawesome-free/css/all.css";
 
 function App() {
   const storedUserData = localStorage.getItem("userData");
@@ -52,13 +53,11 @@ function App() {
   }, [dispatch]);
 
   if (isLoading) {
-    // You can render a loading indicator here if needed
     return null;
   }
 
   return (
     <>
-      {/* Your Routes and components */}
       <Routes>
         <Route
           path="/"
