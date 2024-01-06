@@ -38,6 +38,23 @@ public class DemandController {
 
         return new ResponseEntity<>(demandDTOs, HttpStatus.OK);
     }
+    @PutMapping("update-demand/{id}")
+    public  ResponseEntity<DemandDTO> updateDemand(
+            @PathVariable Integer id,
+            @RequestBody DemandDTO demandDTO
+    ){
+        DemandDTO updatedDemand = demandService.updateDemand(id, demandDTO);
+        if (updatedDemand != null) {
+            return new ResponseEntity<>(updatedDemand, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    @DeleteMapping("delete-demand/{id}")
+    public ResponseEntity<Void> deleteDemand(@PathVariable Integer id) {
+        demandService.deleteDemand(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
 
 

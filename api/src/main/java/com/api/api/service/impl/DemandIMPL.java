@@ -79,19 +79,26 @@ public class DemandIMPL implements DemandService {
         Optional<Demand> optionalDemand = demandRepository.findById(id);
         return optionalDemand.orElse(null);
     }
-    public Demand updateDemand(Integer id, DemandDTO demandDTO) {
+    public DemandDTO updateDemand(Integer id, DemandDTO demandDTO) {
         Optional<Demand> optionalDemand = demandRepository.findById(id);
         if (optionalDemand.isPresent()) {
             Demand demand = optionalDemand.get();
             // Update demand properties
             demand.setDescription(demandDTO.getDescription());
             demand.setServiceType(demandDTO.getServiceType());
-            // Update other properties and relationships
+            demand.setClosed(demandDTO.isClosed());
+            demand.setResolved(demandDTO.isResolved());
 
-            return demandRepository.save(demand);
+            // Update other properties and relationships if needed
+            // For example:
+            // demand.setUser(userRepository.findById(demandDTO.getUserId()).orElse(null));
+            // demand.setResolvedByUser(userRepository.findById(demandDTO.getResolvedByUserId()).orElse(null));
+
+            return convertToDTO(demandRepository.save(demand));
         }
         return null;
     }
+
     public void deleteDemand(Integer id) {
         demandRepository.deleteById(id);
     }

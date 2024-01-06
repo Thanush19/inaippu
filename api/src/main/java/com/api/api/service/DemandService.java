@@ -9,7 +9,7 @@ public interface DemandService {
     DemandDTO createDemand(DemandDTO demandDTO);
     Demand getDemandById(Integer id);
     List<Demand> getAllDemands();
-    Demand updateDemand(Integer id, DemandDTO demandDTO);
+    DemandDTO updateDemand(Integer id, DemandDTO demandDTO);
     void deleteDemand(Integer id);
     List<DemandDTO> getDemandsByUserId(Integer userId);
     //DemandDTO fromDemand(Demand demand);
