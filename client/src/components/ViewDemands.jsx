@@ -63,7 +63,6 @@ const ViewDemands = () => {
   };
 
   const getRandomColor = () => {
-    // Generate a random color using Tailwind CSS classes
     const colors = [
       "bg-blue-500",
       "bg-green-500",
