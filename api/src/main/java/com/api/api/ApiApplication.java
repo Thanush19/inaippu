@@ -14,18 +14,13 @@ public class ApiApplication {
 		SpringApplication.run(ApiApplication.class, args);
 	}
 
-	@Bean
-	public WebMvcConfigurer corsConfigurer() {
-		return new WebMvcConfigurer() {
-			@Override
-			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**")
-						.allowedOrigins("http://localhost:8080", "http://localhost:5173", "https://inaippu.vercel.app")
-						.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-						.allowedHeaders("Authorization", "Content-Type", "Accept")
-						.allowCredentials(true)
-						.maxAge(3600);
-			}
-		};
+	public void addCorsMappings(CorsRegistry registry) {
+		registry.addMapping("/**")
+				.allowedOrigins("*")
+				.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+				.allowedHeaders("Authorization", "Content-Type", "Accept")
+				.allowCredentials(true)
+				.maxAge(3600);
 	}
+
 }
