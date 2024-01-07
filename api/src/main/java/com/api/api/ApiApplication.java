@@ -24,11 +24,12 @@ public class ApiApplication {
 		public void addCorsMappings(CorsRegistry registry) {
 			System.out.println("CORS Configuration invoked.");
 			registry.addMapping("/**")
-					.allowedOrigins("http://localhost:5173", "https://inaippu.vercel.app")
+					.allowedOrigins("*")
 					.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
 					.allowedHeaders("Authorization", "Content-Type", "Accept")
 					.allowCredentials(true)
 					.maxAge(3600);
 		}
+
 	}
 }
