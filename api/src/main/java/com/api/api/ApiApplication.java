@@ -16,20 +16,5 @@ public class ApiApplication {
 		SpringApplication.run(ApiApplication.class, args);
 	}
 
-	@Configuration
-	@EnableWebMvc
-	public class MyConfiguration implements WebMvcConfigurer {
 
-		@Override
-		public void addCorsMappings(CorsRegistry registry) {
-			System.out.println("CORS Configuration invoked.");
-			registry.addMapping("/**")
-					.allowedOrigins("*")
-					.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-					.allowedHeaders("Authorization", "Content-Type", "Accept")
-					.allowCredentials(true)
-					.maxAge(3600);
-		}
-
-	}
 }
