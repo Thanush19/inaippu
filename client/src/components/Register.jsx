@@ -3,7 +3,8 @@ import axios from "axios";
 import Backend from "../../constant";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import ph from "../assets/black-bg.png";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -139,48 +140,58 @@ const Register = () => {
   };
 
   return (
-    <div className="flex  justify-center items-center w-[80vw] h-[80vh] border border-lime-900">
+    <div
+      className="flex flex-col items-center justify-center min-h-screen text-white"
+      style={{
+        backgroundImage: `url(${ph})`,
+        backgroundSize: "cover",
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
+      }}
+    >
       <form onSubmit={handleSubmit}>
-        <div className="border border-lime-900">
-          <h2 className="p-2">Register</h2>
+        <div className=" border-lime-900">
+          <h2 className="p-2 text-center uppercase text-2xl font-bold">
+            Register
+          </h2>
         </div>
-        <div className="">
-          <label>
+        <div className="mb-4">
+          <label className="block text-white text-sm font-bold mb-2">
             Username:
             <input
               type="text"
               name="username"
               value={userData.username}
+              placeholder="Thanush"
               onChange={handleChange}
-              className="border border-lime-900"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
               required
             />
           </label>
         </div>
-        <br />
 
-        <div className="">
-          <label>
+        <div className="mb-4">
+          <label className="block text-white text-sm font-bold mb-2">
             Email:
             <input
               type="email"
               name="email"
+              placeholder="thanush@gmail.com"
               value={userData.email}
               onChange={handleChange}
               required
-              className="border border-lime-900"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
             />
           </label>
         </div>
-        <div className="gender">
-          <label>
+        <div className="mb-4">
+          <label className="block text-white text-sm font-bold mb-2">
             Gender:
             <select
               name="gender"
               value={userData.gender}
               onChange={handleChange}
               required
-              className="border border-lime-900"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
             >
               <option value="" disabled>
                 Select your Gender
@@ -191,38 +202,42 @@ const Register = () => {
           </label>
         </div>
 
-        <br />
-        <div className="">
-          <label>
+        <div className="mb-4">
+          <label className="block text-white text-sm font-bold mb-2">
             Password:
             <input
               type="password"
               name="password"
+              placeholder="Enter Your Password"
               value={userData.password}
               onChange={handleChange}
-              className="border border-lime-900"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
               required
             />
           </label>
         </div>
 
-        <br />
-        <div className="">
-          <label>
+        <div className="mb-4">
+          <label className="block text-white text-sm font-bold mb-2">
             Address:
             <input
               type="text"
               name="address"
               value={userData.address}
+              placeholder="No need to enter the address Manually"
               onChange={handleChange}
-              className="border border-lime-900"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
             />
           </label>
         </div>
 
         <p>(or)</p>
-        <div className="border border-lime-900 bg-gray-300 hover:bg-gray-500">
-          <button onClick={handleGetLocation} disabled={isGettingLocation}>
+        <div className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline bg-white">
+          <button
+            onClick={handleGetLocation}
+            disabled={isGettingLocation}
+            className="bg-white text-gray-800 font-bold"
+          >
             {isGettingLocation ? (
               <div className="loader">
                 <svg
@@ -250,7 +265,7 @@ const Register = () => {
               "Get My Live Location"
             )}
           </button>
-          {locationData && (
+          {/* {locationData && (
             <div>
               <p>Address: {locationData.address}</p>
               <p>
@@ -258,37 +273,41 @@ const Register = () => {
                 {locationData.coordinates.longitude}
               </p>
             </div>
-          )}
+          )} */}
         </div>
-        <br />
-        <div className="">
-          <label>
+
+        <div className="mb-4">
+          <label className="block text-white text-sm font-bold mb-2">
             Phone Number:
             <input
               type="number"
               name="phone_number"
               value={userData.phone_number}
+              placeholder="Enter your Phone number"
               onChange={handleChange}
-              className="border border-lime-900"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
+              inputMode="numeric"
               required
             />
           </label>
         </div>
 
-        <br />
         <div className="my-4">
-          <label className="block text-gray-700">Role:</label>
+          <label className="block text-white text-sm font-bold mb-2">
+            Role:
+          </label>
           <select
             name="role"
             value={userData.role}
             onChange={handleChange}
-            className="form-select border border-lime-900 w-full p-2"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
             required
           >
-            <option value="" disabled>
+            <option value="" disabled className="text-bold text-gray-700">
               Select a role
             </option>
             <option value="ADMIN">👤 ADMIN</option>
+
             <option value="SERVICE_PROVIDER">🛠️ SERVICE PROVIDER</option>
             <option value="STREET_VENDOR">🌆 STREET VENDOR</option>
             <option value="RESIDENT">🏠 RESIDENT</option>
@@ -297,7 +316,9 @@ const Register = () => {
 
         {userData.role === "SERVICE_PROVIDER" && (
           <div className="my-4">
-            <label className="block text-gray-700">Selective Services:</label>
+            <label className="block text-white text-sm font-bold mb-2">
+              Selective Services:
+            </label>
             <div className="relative">
               <select
                 name="services"
@@ -305,24 +326,36 @@ const Register = () => {
                 onChange={handleServicesDropdownChange}
                 onFocus={() => setIsServicesDropdownOpen(true)}
                 onBlur={() => setIsServicesDropdownOpen(false)}
-                className="form-select border border-lime-900 w-full p-2 appearance-none"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
                 multiple
               >
-                <option value="" disabled>
+                <option value="" disabled className="text-black">
                   Select a Service
                 </option>
-                <option value="COOK">Cook</option>
-                <option value="ELECTRICIAN">Electrician</option>
-                <option value="PLUMBER">Plumber</option>
-                <option value="MECHANIC">Mechanic</option>
-                <option value="CARPENTER">Carpenter</option>
-                <option value="MAID">Maid</option>
+                <option className="text-black" value="COOK">
+                  Cook
+                </option>
+                <option className="text-black" value="ELECTRICIAN">
+                  Electrician
+                </option>
+                <option className="text-black" value="PLUMBER">
+                  Plumber
+                </option>
+                <option className="text-black" value="MECHANIC">
+                  Mechanic
+                </option>
+                <option className="text-black" value="CARPENTER">
+                  Carpenter
+                </option>
+                <option className="text-black" value="MAID">
+                  Maid
+                </option>
               </select>
               <div className="absolute right-2 top-2">
                 {userData.services.map((service) => (
                   <span
                     key={service}
-                    className="bg-lime-900 text-white px-2 mr-2 rounded"
+                    className="bg-black text-white px-2 mr-2 rounded"
                   >
                     {service}
                   </span>
@@ -331,12 +364,12 @@ const Register = () => {
             </div>
           </div>
         )}
-
-        <br />
 
         {userData.role === "STREET_VENDOR" && (
           <div className="my-4">
-            <label className="block text-gray-700">Select Services:</label>
+            <label className="block text-white text-sm font-bold mb-2">
+              Select Services:
+            </label>
             <div className="relative">
               <select
                 name="services"
@@ -347,18 +380,30 @@ const Register = () => {
                 className="form-select border border-lime-900 w-full p-2 appearance-none"
                 multiple
               >
-                <option value="Aquavendor">Aquavendor</option>
-                <option value="Food Delivery">Food Delivery</option>
-                <option value="Newspaper">Newspaper</option>
-                <option value="Grocery">Grocery</option>
-                <option value="Vegetables">Vegetables</option>
-                <option value="Meat and Fish">Meat and Fish</option>
+                <option className="text-black" value="Aquavendor">
+                  Aquavendor
+                </option>
+                <option className="text-black" value="Food Delivery">
+                  Food Delivery
+                </option>
+                <option className="text-black" value="Newspaper">
+                  Newspaper
+                </option>
+                <option className="text-black" value="Grocery">
+                  Grocery
+                </option>
+                <option className="text-black" value="Vegetables">
+                  Vegetables
+                </option>
+                <option className="text-black" value="Meat and Fish">
+                  Meat and Fish
+                </option>
               </select>
               <div className="absolute right-2 top-2">
                 {userData.services.map((service) => (
                   <span
                     key={service}
-                    className="bg-lime-900 text-white px-2 mr-2 rounded"
+                    className="bg-black text-white px-2 mr-2 rounded"
                   >
                     {service}
                   </span>
@@ -368,12 +413,24 @@ const Register = () => {
           </div>
         )}
 
-        <br />
-
-        <button type="submit" className="bg-red-400">
-          Register
-        </button>
+        <div className="flex">
+          <button
+            type="submit"
+            className="bg-gray-900 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded-3xl border border-white focus:outline-none focus:shadow-outline mx-auto"
+          >
+            Register
+          </button>
+        </div>
       </form>
+      <Link
+        t0="login"
+        className="mt-4 text-white  rounded-3xl border border-white p-4 bg-black"
+      >
+        Already have Account?
+        <Link to="/login" className="text-white font-bold underline ">
+          Sign up
+        </Link>
+      </Link>
     </div>
   );
 };
