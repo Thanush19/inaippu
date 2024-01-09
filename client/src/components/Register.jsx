@@ -224,7 +224,7 @@ const Register = () => {
               type="text"
               name="address"
               value={userData.address}
-              placeholder="No need to enter the address Manually"
+              placeholder="No need to enter the address Manually, "
               onChange={handleChange}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
             />
@@ -428,7 +428,7 @@ const Register = () => {
       >
         Already have Account?
         <Link to="/login" className="text-white font-bold underline ">
-          Sign up
+          Log in
         </Link>
       </Link>
     </div>
