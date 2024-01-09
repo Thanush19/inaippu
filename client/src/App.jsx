@@ -14,11 +14,13 @@ import RaiseDemand from "./components/RaiseDemand";
 import DemandsList from "./components/DemandsList";
 import ViewDemands from "./components/ViewDemands";
 import "@fortawesome/fontawesome-free/css/all.css";
+import Intro from "./components/Intro";
 
 function App() {
   const storedUserData = localStorage.getItem("userData");
   const initialUserData = storedUserData ? JSON.parse(storedUserData) : null;
   const [isLoading, setIsLoading] = useState(true);
+  const [showIntro, setShowIntro] = useState(true);
   const userData = useSelector(selectUserData);
   const dispatch = useDispatch();
 
@@ -52,12 +54,22 @@ function App() {
     };
   }, [dispatch]);
 
+  useEffect(() => {
+    const introTimeout = setTimeout(() => {
+      setShowIntro(false);
+    }, 3000);
+
+    return () => {
+      clearTimeout(introTimeout);
+    };
+  }, []);
   if (isLoading) {
     return null;
   }
 
   return (
     <>
+      {showIntro && <Intro />}
       <Routes>
         <Route
           path="/"
