@@ -62,7 +62,7 @@ const Register = () => {
     email: "",
     password: "",
     address: "",
-    phone_number: 0,
+    phone_number: "",
     coordinates: {
       latitude: 0,
       longitude: 0,
@@ -141,11 +141,15 @@ const Register = () => {
 
   return (
     <div
-      className="flex flex-col items-center justify-center min-h-screen text-white"
+      className="flex flex-col items-center justify-center min-h-screen"
       style={{
         backgroundImage: `url(${ph})`,
         backgroundSize: "cover",
-        backgroundColor: "rgba(0, 0, 0, 0.5)",
+        backgroundPosition: "center",
+
+        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed",
+        opacity: 0.9,
       }}
     >
       <form onSubmit={handleSubmit}>

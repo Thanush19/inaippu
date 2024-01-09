@@ -62,6 +62,7 @@ const Login = () => {
         backgroundImage: `url(${ph})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
+
         backgroundRepeat: "no-repeat",
         backgroundAttachment: "fixed",
         opacity: 0.9,

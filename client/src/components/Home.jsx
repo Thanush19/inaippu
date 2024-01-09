@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectUserData, clearUserData } from "../redux/userSlice";
 import { Link, useNavigate } from "react-router-dom";
+import ph from "../assets/black-bg.png";
 
 const Home = () => {
   const userData = useSelector(selectUserData);
@@ -17,40 +18,50 @@ const Home = () => {
   const { username, role } = userData;
 
   return (
-    <div className="container mx-auto mt-8">
-      <div className="flex justify-end">
-        <button
-          onClick={handleLogout}
-          className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700"
-        >
-          Logout
-        </button>
-      </div>
-      <div className="text-center">
-        <h2 className="text-3xl font-bold mb-4">Welcome, {username}!</h2>
-        <p className="text-lg">Your role is: {role}</p>
-      </div>
-      <div className="mt-8 flex justify-center space-x-4">
-        {(role === "RESIDENT" || role === "ADMIN") && (
+    <div
+      className="min-h-screen text-white"
+      style={{
+        backgroundImage: `url(${ph})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed",
+        opacity: 0.9,
+      }}
+    >
+      <Link
+        to=""
+        className=" border border-white rounded-3xl top-10  left-0 p-4 text-white hover:text-gray-300"
+      >
+        Your Profile
+      </Link>
+      <div className="flex flex-col items-center justify-center mt-[30vh] ">
+        <div className="text-center">
+          <h2 className="text-3xl font-bold mb-4">Welcome, {username}!</h2>
+          <p className="text-lg">Your role is: {role}</p>
+        </div>
+        <div className="mt-8 flex flex-col items-center justify-center space-x-4 ">
+          {(role === "RESIDENT" || role === "ADMIN") && (
+            <Link
+              to="/raise-demand"
+              className="mt-4 text-white rounded-3xl border w-[10rem] border-white  md:w-[50vw] text-center p-2 bg-black hover:bg-gray-800 hover:text-yellow-600"
+            >
+              Raise Your Demand
+            </Link>
+          )}
           <Link
-            to="/raise-demand"
-            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+            to="/surf-local"
+            className="mt-4 text-white rounded-3xl border w-[10rem] border-white  md:w-[50vw] text-center p-2 bg-black hover:bg-gray-800 hover:text-yellow-600"
           >
-            Raise Your Demand
+            Surf Your Local
           </Link>
-        )}
-        <Link
-          to="/surf-local"
-          className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700"
-        >
-          Surf Your Local
-        </Link>
-        <Link
-          to="/view-demands"
-          className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700"
-        >
-          view demands
-        </Link>
+          <Link
+            to="/view-demands"
+            className="mt-4 text-white rounded-3xl border w-[10rem] border-white  md:w-[50vw] text-center p-2 bg-black hover:bg-gray-800 hover:text-yellow-600"
+          >
+            View Demands
+          </Link>
+        </div>
       </div>
     </div>
   );
