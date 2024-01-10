@@ -30,7 +30,7 @@ const Home = () => {
       }}
     >
       <Link
-        to=""
+        to="/profile"
         className=" border border-white rounded-3xl top-10  left-0 p-4 text-white hover:text-gray-300"
       >
         Your Profile

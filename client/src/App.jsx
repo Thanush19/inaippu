@@ -15,6 +15,7 @@ import DemandsList from "./components/DemandsList";
 import ViewDemands from "./components/ViewDemands";
 import "@fortawesome/fontawesome-free/css/all.css";
 import Intro from "./components/Intro";
+import Profile from "./components/Profile";
 
 function App() {
   const storedUserData = localStorage.getItem("userData");
@@ -82,6 +83,10 @@ function App() {
         <Route
           path="/view-demands"
           element={userData ? <ViewDemands /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/profile"
+          element={userData ? <Profile /> : <Navigate to="/login" />}
         />
         <Route
           path="/raise-demand"
