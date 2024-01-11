@@ -112,7 +112,7 @@ const Register = () => {
     console.log("Submitting data:", userData);
 
     axios
-      .post(`${Backend}/users/register`, userData)
+      .post(`${Backend}/user/register`, userData)
       .then((response) => {
         if (response.data.includes("Username or email already exists")) {
           toast.error("Username or email already exists!", {

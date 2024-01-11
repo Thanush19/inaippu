@@ -1,0 +1,40 @@
+const express = require("express");
+const cors = require("cors"); // Import the cors middleware
+const app = express();
+const bodyParser = require("body-parser");
+const userRouter = require("./route/userRouter");
+
+const db = require("./config/db");
+const port = 3000;
+
+app.use(bodyParser.json());
+
+// Use cors middleware to enable CORS
+app.use(cors());
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  res.header(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT,PATCH, DELETE, OPTIONS"
+  );
+
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
+
+  next();
+});
+
+app.use("/api/user", userRouter);
+
+app.get("/", (req, res) => {
+  res.send("Hello, Express!");
+});
+
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
+});

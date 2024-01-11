@@ -29,29 +29,41 @@ const Login = () => {
     console.log("Submitting login data:", loginData);
 
     axios
-      .post(`${Backend}/users/login`, loginData)
+      .post(`${Backend}/user/login`, loginData)
       .then((response) => {
         console.log(response.data);
-        if (response.data.status) {
-          toast.success("Successfully login !", {
+        const { message, user } = response.data;
+
+        if (response.status === 200) {
+          // Successful login
+          toast.success(message, {
             position: toast.POSITION.TOP_RIGHT,
           });
 
-          dispatch(setUserData(response.data.user));
+          dispatch(setUserData(user));
           navigate("/");
-        } else if (!response.data.status) {
-          toast.error("Users don't exist", {
+        } else if (response.status === 401) {
+          // Incorrect password
+          toast.error(message, {
             position: toast.POSITION.TOP_RIGHT,
           });
-        }
-        if (response.data.response === "password Not Match") {
-          toast.error("Password mismatch", {
+        } else if (response.status === 404) {
+          // User not found
+          toast.error(message, {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+        } else {
+          // Other errors
+          toast.error("An error occurred during login", {
             position: toast.POSITION.TOP_RIGHT,
           });
         }
       })
       .catch((error) => {
         console.error("Error during login:", error);
+        toast.error("An error occurred during login", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
       });
   };
 
