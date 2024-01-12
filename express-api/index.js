@@ -1,8 +1,9 @@
 const express = require("express");
-const cors = require("cors"); // Import the cors middleware
+const cors = require("cors");
 const app = express();
 const bodyParser = require("body-parser");
 const userRouter = require("./route/userRouter");
+const demandRouter = require("./route/demandRouter");
 
 const db = require("./config/db");
 const port = 3000;
@@ -30,6 +31,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/api/user", userRouter);
+app.use("/api", demandRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello, Express!");
