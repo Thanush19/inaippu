@@ -20,12 +20,13 @@ const Profile = () => {
     role,
     id,
     email,
-    phoneNumber,
-    coordinates,
-    address,
+    phone_number,
     gender,
+    address,
     password,
     services,
+    coordinates_lat,
+    coordinates_lng,
   } = userData;
 
   return (
@@ -56,9 +57,9 @@ const Profile = () => {
           {/* Display other details */}
           <p>ID: {id}</p>
           <p>Email: {email}</p>
-          <p>Phone Number: {phoneNumber}</p>
+          <p>Phone Number: {phone_number}</p>
           <p>
-            Coordinates: {coordinates.latitude}, {coordinates.longitude}
+            Coordinates: {coordinates_lat}, {coordinates_lng}
           </p>
           <p>Address: {address}</p>
           <p>Gender: {gender}</p>

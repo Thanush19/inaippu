@@ -108,7 +108,7 @@ const DemandsList = () => {
           {demands.map((demand) => (
             <tr key={demand.id} className="hover:bg-gray-50">
               <td className="py-2 px-4 border">{demand.description}</td>
-              <td className="py-2 px-4 border">{demand.serviceType}</td>
+              <td className="py-2 px-4 border">{demand.servicetype}</td>
               <td className="py-2 px-4 border">
                 <button
                   className="text-blue-500 hover:underline"
@@ -130,7 +130,6 @@ const DemandsList = () => {
         </tbody>
       </table>
 
-      {/* Edit Modal */}
       <Modal
         isOpen={editModalIsOpen}
         onRequestClose={() => setEditModalIsOpen(false)}

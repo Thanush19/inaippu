@@ -87,6 +87,11 @@ const Register = () => {
           [coordinateField]: parseFloat(value),
         },
       }));
+    } else if (name === "gender") {
+      setUserData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
     } else {
       setUserData((prevData) => ({ ...prevData, [name]: value }));
     }
@@ -101,6 +106,7 @@ const Register = () => {
       !userData.password ||
       !userData.address ||
       !userData.phone_number ||
+      !userData.gender ||
       !userData.role
     ) {
       toast.error("All fields are mandatory!", {

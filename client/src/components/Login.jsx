@@ -17,8 +17,6 @@ const Login = () => {
     password: "",
   });
 
-  const [showIntro, setShowIntro] = useState(true);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLoginData((prevData) => ({ ...prevData, [name]: value }));
@@ -35,7 +33,6 @@ const Login = () => {
         const { message, user } = response.data;
 
         if (response.status === 200) {
-          // Successful login
           toast.success(message, {
             position: toast.POSITION.TOP_RIGHT,
           });
@@ -43,17 +40,14 @@ const Login = () => {
           dispatch(setUserData(user));
           navigate("/");
         } else if (response.status === 401) {
-          // Incorrect password
           toast.error(message, {
             position: toast.POSITION.TOP_RIGHT,
           });
         } else if (response.status === 404) {
-          // User not found
           toast.error(message, {
             position: toast.POSITION.TOP_RIGHT,
           });
         } else {
-          // Other errors
           toast.error("An error occurred during login", {
             position: toast.POSITION.TOP_RIGHT,
           });
@@ -120,7 +114,7 @@ const Login = () => {
             </div>
           </form>
           <p className="mt-4 text-white rounded-3xl border border-white p-2 bg-black">
-            Don't have an account?{" "}
+            Don't have an account?
             <Link
               to="/register"
               className="text-white font-bold underline hover:text-yellow-400"
