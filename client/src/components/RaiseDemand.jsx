@@ -15,7 +15,7 @@ const RaiseDemand = () => {
   const [demand, setDemand] = useState({
     description: "",
     serviceType: "",
-    userId: id,
+    user_id: id,
     isClosed: false,
     isResolved: false,
     resolvedByUserId: null,
