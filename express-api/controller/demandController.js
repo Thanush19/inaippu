@@ -7,12 +7,19 @@ const createDemand = async (req, res) => {
       serviceType,
       isClosed,
       isResolved,
-      userId,
+      user_id,
       resolvedByUserId,
     } = req.body;
     const result = await db.one(
       "INSERT INTO demands (description, serviceType, isClosed, isResolved, user_id, resolved_by_user_id) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
-      [description, serviceType, isClosed, isResolved, userId, resolvedByUserId]
+      [
+        description,
+        serviceType,
+        isClosed,
+        isResolved,
+        user_id,
+        resolvedByUserId,
+      ]
     );
     res.status(201).json(result);
   } catch (error) {
@@ -36,13 +43,22 @@ const getDemandsByUserId = async (req, res) => {
 };
 const getAllDemands = async (req, res) => {
   try {
-    const result = await db.any("SELECT * FROM demands");
-    res.status(200).json(result);
+    const demands = await db.any(`
+      SELECT demands.id, demands.description, demands.serviceType,
+             demands.isClosed, demands.isResolved,
+             users.id AS user_id, users.username, users.email, users.phone_number, users.address, users.gender, users.role,
+             users.services, users.coordinates_lat, users.coordinates_lng
+      FROM demands
+      INNER JOIN users ON demands.user_id = users.id
+    `);
+
+    res.status(200).json({ demands });
   } catch (error) {
-    console.error("Error getting all demands:", error);
+    console.error("Error fetching demands:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
 const updateDemand = async (req, res) => {
   try {
     const { id } = req.params;
