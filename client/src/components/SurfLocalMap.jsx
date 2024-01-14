@@ -13,15 +13,17 @@ const SurfLocalMap = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const currentUser = useSelector(selectUserData);
-  console.log(currentUser);
+
   const center = [13.03196875, 80.21947594168645];
   const zoom = 13;
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await axios.get(`${Backend}/users/getAllUsers`);
+        const res = await axios.get(`${Backend}/user/getAllUsers`);
         setUsers(res.data);
         setLoading(false);
+        console.log("Fetched Users:", res.data);
       } catch (err) {
         console.error("Error fetching user data:", err);
         setLoading(false);
@@ -30,6 +32,9 @@ const SurfLocalMap = () => {
 
     fetchUsers();
   }, []);
+
+  console.log("Users:", users);
+
   return (
     <div>
       <h1>Vendor Map</h1>
@@ -48,7 +53,7 @@ const SurfLocalMap = () => {
           {users.map((user) => (
             <Marker
               key={user.id}
-              position={[user.coordinates.latitude, user.coordinates.longitude]}
+              position={[user.coordinates_lat, user.coordinates_lng]}
             >
               <Popup>
                 <p>{`Username: ${user.username}`}</p>
@@ -60,8 +65,8 @@ const SurfLocalMap = () => {
           {currentUser && (
             <Marker
               position={[
-                currentUser.coordinates.latitude,
-                currentUser.coordinates.longitude,
+                currentUser.coordinates_lat,
+                currentUser.coordinates_lng,
               ]}
               icon={L.divIcon({
                 className: "leaflet-div-icon",
