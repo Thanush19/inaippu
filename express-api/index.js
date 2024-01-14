@@ -4,6 +4,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const userRouter = require("./route/userRouter");
 const demandRouter = require("./route/demandRouter");
+const ratingRouter = require("./route/ratingRouter");
 
 const db = require("./config/db");
 const port = 3000;
@@ -32,6 +33,7 @@ app.use((req, res, next) => {
 
 app.use("/api/user", userRouter);
 app.use("/api", demandRouter);
+app.use("/api", ratingRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello, Express!");

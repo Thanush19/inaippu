@@ -44,7 +44,7 @@ const getDemandsByUserId = async (req, res) => {
 const getAllDemands = async (req, res) => {
   try {
     const demands = await db.any(`
-      SELECT demands.id, demands.description, demands.serviceType,
+      SELECT demands.id, demands.description,demands.created_at,demands.updated_at, demands.serviceType,
              demands.isClosed, demands.isResolved,
              users.id AS user_id, users.username, users.email, users.phone_number, users.address, users.gender, users.role,
              users.services, users.coordinates_lat, users.coordinates_lng
