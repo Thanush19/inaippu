@@ -1,4 +1,5 @@
 const db = require("../config/db");
+
 const rateUser = async (req, res) => {
   const { user_id, rating, rated_by_user_id } = req.body;
 
@@ -24,11 +25,11 @@ const rateUser = async (req, res) => {
     const insertRatingValues = [user_id, rating, rated_by_user_id];
     const result = await db.query(insertRatingQuery, insertRatingValues);
 
-    if (result.rows && result.rows.length > 0) {
+    if (result.rowCount > 0) {
+      // Rows were affected, meaning a new rating was inserted or an existing one updated
       res.json(result.rows[0]);
     } else {
-      // If no rows are returned, assume that the row already exists
-      // Perform a separate query to fetch the existing row
+      // No rows were affected, meaning the row already exists
       const existingRowQuery = `
         SELECT * FROM ratings
         WHERE user_id = $1 AND rated_by_user_id = $2
@@ -51,22 +52,11 @@ const rateUser = async (req, res) => {
     }
   } catch (error) {
     console.error("Error rating user:", error);
-
-    let errorMessage = "Internal Server Error";
-
-    if (error.code === "23503") {
-      // PostgreSQL foreign key violation (user not found)
-      errorMessage = "User not found";
-    }
-
-    res.status(500).json({
-      error: errorMessage,
-      message: error.message,
-      stack: error.stack,
-      errorDetails: error, // Include the entire error object for more details
-    });
   }
 };
+
+// Example usage in your route
+// app.post('/api/rateUser', rateUser);
 
 const editRating = async (req, res) => {
   const { ratingId } = req.params;
@@ -118,10 +108,19 @@ const getAverageRating = async (req, res) => {
       [userId]
     );
 
-    res.json({ averageRating: result.rows[0].average_rating });
+    if (result.rows.length > 0) {
+      res.json({ averageRating: result.rows[0].average_rating });
+    } else {
+      res.json({ averageRating: 0 }); // Return a default value or handle the absence of ratings
+    }
   } catch (error) {
     console.error("Error getting average rating:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    res.status(500).json({
+      error: "Internal Server Error",
+      message: error.message,
+      stack: error.stack,
+      errorDetails: error,
+    });
   }
 };
 
