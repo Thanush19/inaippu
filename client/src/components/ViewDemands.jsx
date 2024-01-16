@@ -4,6 +4,7 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import Backend from "../../constant";
+import ph from "../assets/black-bg.png";
 
 const ViewDemands = () => {
   const [demandData, setDemandData] = useState({ demands: [] });
@@ -62,8 +63,20 @@ const ViewDemands = () => {
   };
 
   return (
-    <div>
-      <h2>View Demands</h2>
+    <div
+      className="flex flex-col items-center justify-center min-h-screen"
+      style={{
+        backgroundImage: `url(${ph})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+
+        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed",
+        opacity: 0.9,
+      }}
+    >
+      {" "}
+      <h2 className="text-3xl text-white mb-10">View Demands</h2>
       <MapContainer
         center={center}
         zoom={13}

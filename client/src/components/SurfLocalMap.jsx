@@ -8,6 +8,7 @@ import Backend from "../../constant";
 import { useSelector } from "react-redux";
 import { selectUserData } from "../redux/userSlice";
 import L from "leaflet";
+import ph from "../assets/black-bg.png";
 
 const SurfLocalMap = () => {
   const [users, setUsers] = useState([]);
@@ -36,8 +37,19 @@ const SurfLocalMap = () => {
   console.log("Users:", users);
 
   return (
-    <div>
-      <h1>Vendor Map</h1>
+    <div
+      className="flex flex-col items-center justify-center min-h-screen"
+      style={{
+        backgroundImage: `url(${ph})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+
+        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed",
+        opacity: 0.9,
+      }}
+    >
+      <h1 className="text-white text-3xl mb-10">Surf Your Local</h1>
       {loading ? (
         <p>Loading...</p>
       ) : (
