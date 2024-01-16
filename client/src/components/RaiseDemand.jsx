@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUserData } from "../redux/userSlice";
+import ph from "../assets/black-bg.png";
 
 const RaiseDemand = () => {
   const userData = useSelector(selectUserData);
@@ -56,7 +57,19 @@ const RaiseDemand = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
+    <div
+      className="flex flex-col items-center justify-center min-h-screen"
+      style={{
+        backgroundImage: `url(${ph})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+
+        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed",
+        opacity: 0.9,
+      }}
+    >
+      {" "}
       <div className="bg-white p-8 shadow-md rounded-md w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6">Raise Demand</h2>
         <form onSubmit={handleSubmit}>
@@ -94,7 +107,7 @@ const RaiseDemand = () => {
       </div>
       <Link
         to={`/user-demands/${id}`}
-        className="text-blue-500 hover:text-blue-700 ml-2"
+        className="text-blue-500 hover:text-blue-700 ml-2 bg-white border border-2xl rounded-2xl p-2 mt-5"
       >
         Your Demands
       </Link>

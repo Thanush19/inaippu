@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { selectUserData } from "../redux/userSlice";
 import Modal from "react-modal"; // Import react-modal
 Modal.setAppElement("#root");
+import ph from "../assets/black-bg.png";
 
 const DemandsList = () => {
   const userData = useSelector(selectUserData);
@@ -93,15 +94,27 @@ const DemandsList = () => {
   };
 
   return (
-    <div className="container mx-auto p-4">
+    <div
+      className="flex flex-col items-center justify-center min-h-screen text-white"
+      style={{
+        backgroundImage: `url(${ph})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+
+        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed",
+        opacity: 0.9,
+      }}
+    >
+      {" "}
       <h2 className="text-2xl font-bold mb-4">Demands List for User {id}</h2>
       <table className="min-w-full border border-gray-300">
         <thead className="bg-gray-100">
           <tr>
-            <th className="py-2 px-4 border">Description</th>
-            <th className="py-2 px-4 border">Service Type</th>
-            <th className="py-2 px-4 border">Edit</th>
-            <th className="py-2 px-4 border">Delete</th>
+            <th className="py-2 px-4 border text-black">Description</th>
+            <th className="py-2 px-4 border text-black">Service Type</th>
+            <th className="py-2 px-4 border text-black">Edit</th>
+            <th className="py-2 px-4 border text-black">Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -129,7 +142,6 @@ const DemandsList = () => {
           ))}
         </tbody>
       </table>
-
       <Modal
         isOpen={editModalIsOpen}
         onRequestClose={() => setEditModalIsOpen(false)}
