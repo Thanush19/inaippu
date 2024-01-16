@@ -1,7 +1,7 @@
 const db = require("../config/db");
 
 const bcrypt = require("bcryptjs");
-const saltRounds = 10; // You can adjust the number of salt rounds based on your security requirements
+const saltRounds = 10;
 
 const registerUser = async (req, res) => {
   try {
