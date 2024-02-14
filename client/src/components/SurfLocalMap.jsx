@@ -22,9 +22,13 @@ const SurfLocalMap = () => {
     const fetchUsers = async () => {
       try {
         const res = await axios.get(`${Backend}/user/getAllUsers`);
-        setUsers(res.data);
+        // Filter out users with role "RESIDENT" or "ADMIN"
+        const filteredUsers = res.data.filter(
+          (user) => user.role !== "RESIDENT" && user.role !== "ADMIN"
+        );
+        setUsers(filteredUsers);
         setLoading(false);
-        console.log("Fetched Users:", res.data);
+        console.log("Fetched Users:", filteredUsers);
       } catch (err) {
         console.error("Error fetching user data:", err);
         setLoading(false);

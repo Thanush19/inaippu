@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectUserData, clearUserData } from "../redux/userSlice";
 import ph from "../assets/black-bg.png";
+import ProfileChart from "./ProfileChart";
 
 const Profile = () => {
   const userData = useSelector(selectUserData);
@@ -66,6 +67,9 @@ const Profile = () => {
           {/* <p>Gender: {password}</p> */}
           <p>Services: {services}</p>
           {/* Display other details as needed */}
+        </div>
+        <div>
+          <ProfileChart />
         </div>
       </div>
     </>
