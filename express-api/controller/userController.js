@@ -50,13 +50,12 @@ const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    // Example SQL query for user login
-    const user = await db.oneOrNone("SELECT * FROM users WHERE email = $1", [
-      email,
-    ]);
+    const user = await db.oneOrNone(
+      "SELECT * FROM users WHERE email = $1 LIMIT 1",
+      [email]
+    );
 
     if (user) {
-      // Compare hashed password with the provided password
       const isPasswordCorrect = await bcrypt.compare(password, user.password);
 
       if (isPasswordCorrect) {
@@ -74,7 +73,6 @@ const loginUser = async (req, res) => {
 };
 const getAllUsers = async (req, res) => {
   try {
-    // Example SQL query to fetch all users
     const users = await db.any("SELECT * FROM users");
 
     res.status(200).json(users);
