@@ -111,18 +111,33 @@ const DemandsList = () => {
       <table className="min-w-full border border-gray-300">
         <thead className="bg-gray-100">
           <tr>
-            <th className="py-2 px-4 border text-black">Description</th>
-            <th className="py-2 px-4 border text-black">Service Type</th>
-            <th className="py-2 px-4 border text-black">Edit</th>
-            <th className="py-2 px-4 border text-black">Delete</th>
+            <th className="py-2 px-4 border text-black hover:border-black">
+              Description
+            </th>
+            <th className="py-2 px-4 border text-black hover:border-black">
+              Service Type
+            </th>
+            <th className="py-2 px-4 border text-black hover:border-black">
+              Edit
+            </th>
+            <th className="py-2 px-4 border text-black hover:border-black">
+              Delete
+            </th>
           </tr>
         </thead>
         <tbody>
           {demands.map((demand) => (
-            <tr key={demand.id} className="hover:bg-gray-50">
-              <td className="py-2 px-4 border">{demand.description}</td>
-              <td className="py-2 px-4 border">{demand.servicetype}</td>
-              <td className="py-2 px-4 border">
+            <tr
+              key={demand.id}
+              className="hover:bg-gray-50  hover:text-black  hover:border-black"
+            >
+              <td className="py-2 px-4 border hover:text-black  hover:border-black">
+                {demand.description}
+              </td>
+              <td className="py-2 px-4 border hover:border-black">
+                {demand.servicetype}
+              </td>
+              <td className="py-2 px-4 border hover:border-black">
                 <button
                   className="text-blue-500 hover:underline"
                   onClick={() => handleEdit(demand)}
