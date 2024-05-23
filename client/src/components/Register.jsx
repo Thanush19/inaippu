@@ -160,7 +160,7 @@ const Register = () => {
     >
       <form onSubmit={handleSubmit}>
         <div className=" border-lime-900">
-          <h2 className="p-2 text-center uppercase text-2xl font-bold">
+          <h2 className="p-2 text-center uppercase text-2xl font-bold text-white">
             Register
           </h2>
         </div>
