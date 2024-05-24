@@ -146,301 +146,294 @@ const Register = () => {
   };
 
   return (
-    <div
-      className="flex flex-col items-center justify-center min-h-screen"
-      style={{
-        backgroundImage: `url(${ph})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-
-        backgroundRepeat: "no-repeat",
-        backgroundAttachment: "fixed",
-        opacity: 0.9,
-      }}
-    >
-      <form onSubmit={handleSubmit}>
-        <div className=" border-lime-900">
-          <h2 className="p-2 text-center uppercase text-2xl font-bold text-white">
-            Register
-          </h2>
-        </div>
-        <div className="mb-4">
-          <label className="block text-white text-sm font-bold mb-2">
-            Username:
-            <input
-              type="text"
-              name="username"
-              value={userData.username}
-              placeholder="Thanush"
-              onChange={handleChange}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
-              required
-            />
-          </label>
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-white text-sm font-bold mb-2">
-            Email:
-            <input
-              type="email"
-              name="email"
-              placeholder="thanush@gmail.com"
-              value={userData.email}
-              onChange={handleChange}
-              required
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
-            />
-          </label>
-        </div>
-        <div className="mb-4">
-          <label className="block text-white text-sm font-bold mb-2">
-            Gender:
-            <select
-              name="gender"
-              value={userData.gender}
-              onChange={handleChange}
-              required
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
-            >
-              <option value="" disabled>
-                Select your Gender
-              </option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-            </select>
-          </label>
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-white text-sm font-bold mb-2">
-            Password:
-            <input
-              type="password"
-              name="password"
-              placeholder="Enter Your Password"
-              value={userData.password}
-              onChange={handleChange}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
-              required
-            />
-          </label>
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-white text-sm font-bold mb-2">
-            Address:
-            <input
-              type="text"
-              name="address"
-              value={userData.address}
-              placeholder="No need to enter the address Manually, "
-              onChange={handleChange}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
-            />
-          </label>
-        </div>
-
-        <p>(or)</p>
-        <div className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline bg-white">
-          <button
-            onClick={handleGetLocation}
-            disabled={isGettingLocation}
-            className="bg-white text-gray-800 font-bold"
-          >
-            {isGettingLocation ? (
-              <div className="loader">
-                <svg
-                  className="animate-spin h-5 w-5 text-white"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  ></circle>
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 4.418 3.582 8 8 8v-4c-2.636 0-5.052-1.062-6.782-2.809l2.73-2.73a5.978 6.014 0 008.475 0 5.978 6.014 0 000-8.475l-1.414-1.414A7.963 7.963 0 016 17.291zM17.207 6.707a5.978 6.014 0 000 8.475l1.414 1.414A7.963 7.963 0 0020 11.709h4c0-4.418-3.582-8-8-8v4c2.636 0 5.052 1.062 6.782 2.809l-2.73 2.73a5.978 6.014 0 00-8.475 0 5.978 6.014 0 000 8.475l1.414 1.414A7.963 7.963 0 0022 12.291h-4a7.963 7.963 0 01-1.793 5.003z"
-                  ></path>
-                </svg>
-              </div>
-            ) : (
-              "Get My Live Location"
-            )}
-          </button>
-          {/* {locationData && (
-            <div>
-              <p>Address: {locationData.address}</p>
-              <p>
-                Coordinates: {locationData.coordinates.latitude},{" "}
-                {locationData.coordinates.longitude}
-              </p>
-            </div>
-          )} */}
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-white text-sm font-bold mb-2">
-            Phone Number:
-            <input
-              type="number"
-              name="phone_number"
-              value={userData.phone_number}
-              placeholder="Enter your Phone number"
-              onChange={handleChange}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
-              inputMode="numeric"
-              required
-            />
-          </label>
-        </div>
-
-        <div className="my-4">
-          <label className="block text-white text-sm font-bold mb-2">
-            Role:
-          </label>
-          <select
-            name="role"
-            value={userData.role}
-            onChange={handleChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
-            required
-          >
-            <option value="" disabled className="text-bold text-gray-700">
-              Select a role
-            </option>
-            <option value="ADMIN">👤 ADMIN</option>
-
-            <option value="SERVICE_PROVIDER">🛠️ SERVICE PROVIDER</option>
-            <option value="STREET_VENDOR">🌆 STREET VENDOR</option>
-            <option value="RESIDENT">🏠 RESIDENT</option>
-          </select>
-        </div>
-
-        {userData.role === "SERVICE_PROVIDER" && (
-          <div className="my-4">
-            <label className="block text-white text-sm font-bold mb-2">
-              Selective Services:
-            </label>
-            <div className="relative">
-              <select
-                name="services"
-                value={userData.services}
-                onChange={handleServicesDropdownChange}
-                onFocus={() => setIsServicesDropdownOpen(true)}
-                onBlur={() => setIsServicesDropdownOpen(false)}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
-                multiple
-              >
-                <option value="" disabled className="text-black">
-                  Select a Service
-                </option>
-                <option className="text-black" value="COOK">
-                  Cook
-                </option>
-                <option className="text-black" value="ELECTRICIAN">
-                  Electrician
-                </option>
-                <option className="text-black" value="PLUMBER">
-                  Plumber
-                </option>
-                <option className="text-black" value="MECHANIC">
-                  Mechanic
-                </option>
-                <option className="text-black" value="CARPENTER">
-                  Carpenter
-                </option>
-                <option className="text-black" value="MAID">
-                  Maid
-                </option>
-              </select>
-              <div className="absolute right-2 top-2">
-                {userData.services.map((service) => (
-                  <span
-                    key={service}
-                    className="bg-black text-white px-2 mr-2 rounded"
-                  >
-                    {service}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {userData.role === "STREET_VENDOR" && (
-          <div className="my-4">
-            <label className="block text-white text-sm font-bold mb-2">
-              Select Services:
-            </label>
-            <div className="relative">
-              <select
-                name="services"
-                value={userData.services}
-                onChange={handleServicesDropdownChange}
-                onFocus={() => setIsServicesDropdownOpen(true)}
-                onBlur={() => setIsServicesDropdownOpen(false)}
-                className="form-select border border-lime-900 w-full p-2 appearance-none"
-                multiple
-              >
-                <option className="text-black" value="Aquavendor">
-                  Aquavendor
-                </option>
-                <option className="text-black" value="Food Delivery">
-                  Food Delivery
-                </option>
-                <option className="text-black" value="Newspaper">
-                  Newspaper
-                </option>
-                <option className="text-black" value="Grocery">
-                  Grocery
-                </option>
-                <option className="text-black" value="Vegetables">
-                  Vegetables
-                </option>
-                <option className="text-black" value="Meat and Fish">
-                  Meat and Fish
-                </option>
-              </select>
-              <div className="absolute right-2 top-2">
-                {userData.services.map((service) => (
-                  <span
-                    key={service}
-                    className="bg-black text-white px-2 mr-2 rounded"
-                  >
-                    {service}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-
-        <div className="flex">
-          <button
-            type="submit"
-            className="bg-gray-900 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded-3xl border border-white focus:outline-none focus:shadow-outline mx-auto"
-          >
-            Register
-          </button>
-        </div>
-      </form>
-      <Link
-        t0="login"
-        className="mt-4 text-white  rounded-3xl border border-white p-4 bg-black"
+    <div className="flex flex-col md:flex-row min-h-screen">
+      <div
+        className="hidden md:block w-1/2"
+        style={{
+          backgroundImage: `url(${ph})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      ></div>
+      <div
+        className="flex flex-col items-center justify-center w-full md:w-1/2"
+        style={{
+          backgroundColor: "rgba(0, 0, 0, 0.9)",
+        }}
       >
-        Already have Account?
-        <Link to="/login" className="text-white font-bold underline ">
-          Log in
-        </Link>
-      </Link>
+        <form onSubmit={handleSubmit} className="w-full max-w-md p-8">
+          <div className="border-lime-900">
+            <h2 className="p-2 text-center uppercase text-2xl font-bold text-white">
+              Register
+            </h2>
+          </div>
+          <div className="mb-4">
+            <label className="block text-white text-sm font-bold mb-2">
+              Username:
+              <input
+                type="text"
+                name="username"
+                value={userData.username}
+                placeholder="Thanush"
+                onChange={handleChange}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
+                required
+              />
+            </label>
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-white text-sm font-bold mb-2">
+              Email:
+              <input
+                type="email"
+                name="email"
+                placeholder="thanush@gmail.com"
+                value={userData.email}
+                onChange={handleChange}
+                required
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
+              />
+            </label>
+          </div>
+          <div className="mb-4">
+            <label className="block text-white text-sm font-bold mb-2">
+              Gender:
+              <select
+                name="gender"
+                value={userData.gender}
+                onChange={handleChange}
+                required
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
+              >
+                <option value="" disabled>
+                  Select your Gender
+                </option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </label>
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-white text-sm font-bold mb-2">
+              Password:
+              <input
+                type="password"
+                name="password"
+                placeholder="Enter Your Password"
+                value={userData.password}
+                onChange={handleChange}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
+                required
+              />
+            </label>
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-white text-sm font-bold mb-2">
+              Address:
+              <input
+                type="text"
+                name="address"
+                value={userData.address}
+                placeholder="No need to enter the address Manually, "
+                onChange={handleChange}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
+              />
+            </label>
+          </div>
+
+          <p className="text-white mb-4">(or)</p>
+          <div className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline bg-white mb-4">
+            <button
+              onClick={handleGetLocation}
+              disabled={isGettingLocation}
+              className="bg-white text-gray-800 font-bold w-full"
+            >
+              {isGettingLocation ? (
+                <div className="loader">
+                  <svg
+                    className="animate-spin h-5 w-5 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 4.418 3.582 8 8 8v-4c-2.636 0-5.052-1.062-6.782-2.809l2.73-2.73a5.978 6.014 0 008.475 0 5.978 6.014 0 000-8.475l-1.414-1.414A7.963 7.963 0 016 17.291zM17.207 6.707a5.978 6.014 0 000 8.475l1.414 1.414A7.963 7.963 0 0020 11.709h4c0-4.418-3.582-8-8-8v4c2.636 0 5.052 1.062 6.782 2.809l-2.73 2.73a5.978 6.014 0 00-8.475 0 5.978 6.014 0 000 8.475l1.414 1.414A7.963 7.963 0 0022 12.291h-4a7.963 7.963 0 01-1.793 5.003z"
+                    ></path>
+                  </svg>
+                </div>
+              ) : (
+                "Get My Live Location"
+              )}
+            </button>
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-white text-sm font-bold mb-2">
+              Phone Number:
+              <input
+                type="number"
+                name="phone_number"
+                value={userData.phone_number}
+                placeholder="Enter your Phone number"
+                onChange={handleChange}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
+                inputMode="numeric"
+                required
+              />
+            </label>
+          </div>
+
+          <div className="my-4">
+            <label className="block text-white text-sm font-bold mb-2">
+              Role:
+            </label>
+            <select
+              name="role"
+              value={userData.role}
+              onChange={handleChange}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
+              required
+            >
+              <option value="" disabled className="text-bold text-gray-700">
+                Select a role
+              </option>
+              <option value="ADMIN">👤 ADMIN</option>
+
+              <option value="SERVICE_PROVIDER">🛠️ SERVICE PROVIDER</option>
+              <option value="STREET_VENDOR">🌆 STREET VENDOR</option>
+              <option value="RESIDENT">🏠 RESIDENT</option>
+            </select>
+          </div>
+
+          {userData.role === "SERVICE_PROVIDER" && (
+            <div className="my-4">
+              <label className="block text-white text-sm font-bold mb-2">
+                Selective Services:
+              </label>
+              <div className="relative">
+                <select
+                  name="services"
+                  value={userData.services}
+                  onChange={handleServicesDropdownChange}
+                  onFocus={() => setIsServicesDropdownOpen(true)}
+                  onBlur={() => setIsServicesDropdownOpen(false)}
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
+                  multiple
+                >
+                  <option value="" disabled className="text-black">
+                    Select a Service
+                  </option>
+                  <option className="text-black" value="COOK">
+                    Cook
+                  </option>
+                  <option className="text-black" value="ELECTRICIAN">
+                    Electrician
+                  </option>
+                  <option className="text-black" value="PLUMBER">
+                    Plumber
+                  </option>
+                  <option className="text-black" value="MECHANIC">
+                    Mechanic
+                  </option>
+                  <option className="text-black" value="CARPENTER">
+                    Carpenter
+                  </option>
+                  <option className="text-black" value="MAID">
+                    Maid
+                  </option>
+                </select>
+                <div className="absolute right-2 top-2">
+                  {userData.services.map((service) => (
+                    <span
+                      key={service}
+                      className="bg-black text-white px-2 mr-2 rounded"
+                    >
+                      {service}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {userData.role === "STREET_VENDOR" && (
+            <div className="my-4">
+              <label className="block text-white text-sm font-bold mb-2">
+                Select Services:
+              </label>
+              <div className="relative">
+                <select
+                  name="services"
+                  value={userData.services}
+                  onChange={handleServicesDropdownChange}
+                  onFocus={() => setIsServicesDropdownOpen(true)}
+                  onBlur={() => setIsServicesDropdownOpen(false)}
+                  className="form-select border border-lime-900 w-full p-2 appearance-none"
+                  multiple
+                >
+                  <option className="text-black" value="Aquavendor">
+                    Aquavendor
+                  </option>
+                  <option className="text-black" value="Food Delivery">
+                    Food Delivery
+                  </option>
+                  <option className="text-black" value="Newspaper">
+                    Newspaper
+                  </option>
+                  <option className="text-black" value="Grocery">
+                    Grocery
+                  </option>
+                  <option className="text-black" value="Vegetables">
+                    Vegetables
+                  </option>
+                  <option className="text-black" value="Meat and Fish">
+                    Meat and Fish
+                  </option>
+                </select>
+                <div className="absolute right-2 top-2">
+                  {userData.services.map((service) => (
+                    <span
+                      key={service}
+                      className="bg-black text-white px-2 mr-2 rounded"
+                    >
+                      {service}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          <div className="flex">
+            <button
+              type="submit"
+              className="bg-gray-900 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded-3xl border border-white focus:outline-none focus:shadow-outline mx-auto"
+            >
+              Register
+            </button>
+          </div>
+        </form>
+        <div className="mt-4 text-white  rounded-3xl border border-white p-4 bg-black">
+          Already have an Account?
+          <Link to="/login" className="text-white font-bold underline ml-2">
+            Log in
+          </Link>
+        </div>
+      </div>
+      <ToastContainer />
     </div>
   );
 };
