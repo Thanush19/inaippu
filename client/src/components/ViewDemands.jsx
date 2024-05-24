@@ -5,10 +5,17 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import Backend from "../../constant";
 import ph from "../assets/black-bg.png";
+import { useNavigate } from "react-router-dom";
 
 const ViewDemands = () => {
   const [demandData, setDemandData] = useState({ demands: [] });
   const [center, setCenter] = useState([13.0676, 80.2187]);
+  const [isFullMap, setIsFullMap] = useState(false);
+  const navigate = useNavigate();
+
+  const back = () => {
+    navigate("/");
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,54 +69,85 @@ const ViewDemands = () => {
     return colors[Math.floor(Math.random() * colors.length)];
   };
 
+  const toggleMapSize = () => {
+    setIsFullMap(!isFullMap);
+  };
+
   return (
-    <div
-      className="flex flex-col items-center justify-center min-h-screen"
-      style={{
-        backgroundImage: `url(${ph})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-
-        backgroundRepeat: "no-repeat",
-        backgroundAttachment: "fixed",
-        opacity: 0.9,
-      }}
-    >
-      {" "}
-      <h2 className="text-3xl text-white mb-10">View Demands</h2>
-      <MapContainer
-        center={center}
-        zoom={13}
-        style={{ height: "400px", width: "100%" }}
+    <div className="bg-black">
+      <button
+        className="mt-4 px-4 py-2 text-black bg-white rounded-3xl ml-[5%]"
+        onClick={back}
       >
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        />
-        {demandData.demands.map((demand, index) => {
-          const coordinates = getCoordinatesFromDemand(demand);
+        Go Back
+      </button>
+      <div
+        className="flex flex-col items-center justify-center min-h-screen"
+        style={{
+          backgroundImage: `url(${ph})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundAttachment: "fixed",
+          opacity: 0.9,
+        }}
+        onClick={(e) => {
+          if (isFullMap && e.target.closest(".leaflet-container") === null) {
+            toggleMapSize();
+          }
+        }}
+      >
+        <h2 className="text-3xl text-white mb-10">View Demands</h2>
+        <div
+          className={`${
+            isFullMap ? "w-full h-screen" : "w-full md:w-3/5 h-[400px]"
+          } transition-all duration-500`}
+          style={{ cursor: isFullMap ? "default" : "pointer" }}
+          onClick={() => {
+            if (!isFullMap) toggleMapSize();
+          }}
+        >
+          <MapContainer
+            center={center}
+            zoom={13}
+            style={{ height: "100%", width: "100%" }}
+          >
+            <TileLayer
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            />
+            {demandData.demands.map((demand, index) => {
+              const coordinates = getCoordinatesFromDemand(demand);
 
-          console.log("Coordinates for demand", index + 1, ":", coordinates);
+              console.log(
+                "Coordinates for demand",
+                index + 1,
+                ":",
+                coordinates
+              );
 
-          const userMarkerIcon = getCustomMarkerIcon();
+              const userMarkerIcon = getCustomMarkerIcon();
 
-          return (
-            <Marker
-              key={`${demand.id}-${index}`}
-              position={coordinates}
-              icon={userMarkerIcon}
-            >
-              <Popup>
-                <strong>Demand:</strong> {demand.description}
-                <br />
-                <strong>Service Type:</strong> {demand.servicetype}
-                <br />
-                <strong>Contact no:</strong> {demand.phone_number || "Unknown"}
-              </Popup>
-            </Marker>
-          );
-        })}
-      </MapContainer>
+              return (
+                <Marker
+                  key={`${demand.id}-${index}`}
+                  position={coordinates}
+                  icon={userMarkerIcon}
+                >
+                  <Popup>
+                    <strong>Demand:</strong> {demand.description}
+                    <br />
+                    <strong>Service Type:</strong> {demand.servicetype}
+                    <br />
+                    <strong>Contact no:</strong>{" "}
+                    {demand.phone_number || "Unknown"}
+                  </Popup>
+                </Marker>
+              );
+            })}
+          </MapContainer>
+        </div>
+      </div>
     </div>
   );
 };

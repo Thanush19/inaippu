@@ -21,6 +21,7 @@
     "@reduxjs/toolkit": "^2.0.1",
     "axios": "^1.6.2",
     "chart.js": "^4.4.1",
+    "framer-motion": "^11.2.6",
     "get-stream": "^8.0.1",
     "ipify": "^6.0.0",
     "leaflet": "^1.9.4",
