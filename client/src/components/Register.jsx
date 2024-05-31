@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import Backend from "../../constant";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate, Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import ph from "../assets/black-bg.png";
 
 const Register = () => {
@@ -146,7 +147,7 @@ const Register = () => {
   };
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen">
+    <div className="flex flex-col md:flex-row min-h-screen bg-black">
       <div
         className="hidden md:block w-1/2"
         style={{
@@ -244,7 +245,7 @@ const Register = () => {
             </label>
           </div>
 
-          <p className="text-white mb-4">(or)</p>
+          <p className="text-white mb-4 font-bold text-lg">(or)</p>
           <div className="shadow appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline bg-white mb-4">
             <button
               onClick={handleGetLocation}
@@ -319,7 +320,12 @@ const Register = () => {
           </div>
 
           {userData.role === "SERVICE_PROVIDER" && (
-            <div className="my-4">
+            <div
+              className="my-4
+
+     
+            "
+            >
               <label className="block text-white text-sm font-bold mb-2">
                 Selective Services:
               </label>

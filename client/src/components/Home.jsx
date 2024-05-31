@@ -18,16 +18,7 @@ const Home = () => {
   const { username, role } = userData;
 
   return (
-    <div className="bg-black">
-      <div className="">
-        <Link
-          to="/profile"
-          className=" border border-white rounded-3xl  left-0 p-4 text-white hover:text-gray-300"
-        >
-          Your Profile
-        </Link>
-      </div>
-
+    <div className="bg-black ">
       <div
         className="min-h-screen text-white"
         style={{
@@ -39,6 +30,14 @@ const Home = () => {
           opacity: 0.9,
         }}
       >
+        <div className="ml-[2rem] ">
+          <Link
+            to="/profile"
+            className=" border border-white rounded-3xl  left-0 p-4 text-white hover:text-gray-300"
+          >
+            Your Profile
+          </Link>
+        </div>
         <div className="flex flex-col items-center justify-center mt-[30vh] ">
           <div className="text-center">
             <h2 className="text-3xl font-bold mb-4">Welcome, {username}!</h2>

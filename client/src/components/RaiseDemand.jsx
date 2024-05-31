@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import Backend from "../../constant";
 import { ToastContainer, toast } from "react-toastify";
@@ -7,12 +7,15 @@ import { useNavigate, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUserData } from "../redux/userSlice";
 import ph from "../assets/black-bg.png";
+import { motion, AnimatePresence } from "framer-motion";
 
 const RaiseDemand = () => {
   const userData = useSelector(selectUserData);
   const navigate = useNavigate();
+  const modalRef = useRef();
 
   const { id } = userData;
+  const [isOpen, setIsOpen] = useState(true); // State to manage modal visibility
   const [demand, setDemand] = useState({
     description: "",
     serviceType: "",
@@ -47,6 +50,8 @@ const RaiseDemand = () => {
         toast.success("Demand created successfully!", {
           position: toast.POSITION.TOP_RIGHT,
         });
+        setIsOpen(false); // Close the modal on successful submission
+        navigate("/"); // Navigate to the desired route
       })
       .catch((err) => {
         console.error("Error creating demand:", err);
@@ -56,6 +61,30 @@ const RaiseDemand = () => {
       });
   };
 
+  const handleClose = () => {
+    setIsOpen(false);
+    navigate("/"); // Navigate to the desired route
+  };
+
+  const handleClickOutside = (event) => {
+    if (modalRef.current && !modalRef.current.contains(event.target)) {
+      handleClose();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const modalVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: { opacity: 1, scale: 1 },
+    exit: { opacity: 0, scale: 0.8 },
+  };
+
   return (
     <div
       className="flex flex-col items-center justify-center min-h-screen"
@@ -63,54 +92,71 @@ const RaiseDemand = () => {
         backgroundImage: `url(${ph})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-
         backgroundRepeat: "no-repeat",
         backgroundAttachment: "fixed",
         opacity: 0.9,
       }}
     >
-      {" "}
-      <div className="bg-white p-8 shadow-md rounded-md w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-6">Raise Demand</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              Description:
-            </label>
-            <input
-              className="w-full px-3 py-2 border rounded-md"
-              type="text"
-              name="description"
-              value={demand.description}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              Service Type:
-            </label>
-            <input
-              className="w-full px-3 py-2 border rounded-md"
-              type="text"
-              name="serviceType"
-              value={demand.serviceType}
-              onChange={handleInputChange}
-            />
-          </div>
-          <button
-            className="bg-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-700"
-            type="submit"
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            ref={modalRef}
+            className="relative bg-white p-8 shadow-md rounded-md w-full max-w-md"
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            variants={modalVariants}
+            transition={{ duration: 0.3 }}
           >
-            Submit Demand
-          </button>
-        </form>
-      </div>
+            <button
+              onClick={handleClose}
+              className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+            >
+              &times;
+            </button>
+            <h2 className="text-2xl font-bold mb-6">Raise Demand</h2>
+            <form onSubmit={handleSubmit}>
+              <div className="mb-4">
+                <label className="block text-gray-700 text-sm font-bold mb-2">
+                  Description:
+                </label>
+                <input
+                  className="w-full px-3 py-2 border rounded-md"
+                  type="text"
+                  name="description"
+                  value={demand.description}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700 text-sm font-bold mb-2">
+                  Service Type:
+                </label>
+                <input
+                  className="w-full px-3 py-2 border rounded-md"
+                  type="text"
+                  name="serviceType"
+                  value={demand.serviceType}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <button
+                className="bg-black  text-yellow-500 font-bold py-2 px-4 rounded-md hover:bg-yellow-700 hover:text-black"
+                type="submit"
+              >
+                Submit Demand
+              </button>
+            </form>
+          </motion.div>
+        )}
+      </AnimatePresence>
       <Link
         to={`/user-demands/${id}`}
         className="text-blue-500 hover:text-blue-700 ml-2 bg-white border border-2xl rounded-2xl p-2 mt-5"
       >
         Your Demands
       </Link>
+      <ToastContainer />
     </div>
   );
 };
